@@ -40,7 +40,7 @@ function OwnerForm() {
         />
         <button id='submit' type='submit' onClick={(e) => handleSubmit(e)}>Submit</button>
       </form>
-      {success && <h1>Form Submitted</h1>}
+      {success && <h2>Form Submitted</h2>}
     </div>
   );
 }
