@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import './OwnerForm.css';
+import Radium from 'radium';
+
 
 function OwnerForm() {
   const [ name, setName ] = useState('');
@@ -17,6 +18,8 @@ function OwnerForm() {
       return setErrors({...errors, ssn: 'SSN is required'})
     } else if(ssn.length < 9 || ssn.length > 9) {
       return setErrors({...errors, ssn: 'SSN must be 9 characters'})
+    } else {
+      return setErrors({...errors, ssn: ''})
     }
   }
 
@@ -27,9 +30,24 @@ function OwnerForm() {
     }
   }
 
+  let styles = {
+    form: {
+      backgroundColor: 'lightgray',
+      width: '75%',
+      margin: '10px auto',
+      padding: '15px',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    alert: {
+      color: 'red',
+      fontSize: '11px',
+    }
+  }
+
   return (
     <div id='form-wrapper'>
-      <form id='owner-form'>
+      <form id='owner-form' style={styles.form}>
         <label htmlFor='name'>Name</label>
         <input 
           id='name' 
@@ -52,7 +70,7 @@ function OwnerForm() {
           onChange={(e => setSsn(e.target.value) )}
           onBlur={() => validateSsn()}
         />
-        {errors.ssn && <p>{errors.ssn}</p>}
+        {errors.ssn && <p style={styles.alert}>{errors.ssn}</p>}
         <button id='submit' type='submit' onClick={(e) => handleSubmit(e)}>Submit</button>
       </form>
       {success && <h2>Form Submitted</h2>}
@@ -60,4 +78,4 @@ function OwnerForm() {
   );
 }
 
-export default OwnerForm;
+export default Radium(OwnerForm);
