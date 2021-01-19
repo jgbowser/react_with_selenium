@@ -14,10 +14,13 @@ function OwnerForm() {
   })
 
   function validateSsn() {
+    let regex = new RegExp("^(?!666|000|9\\d{2})\\d{3}-(?!00)\\d{2}-(?!0{4})\\d{4}$");
     if(ssn === '') {
       return setErrors({...errors, ssn: 'SSN is required'})
     } else if(ssn.length < 9 || ssn.length > 9) {
       return setErrors({...errors, ssn: 'SSN must be 9 characters'})
+    } else if(!regex.test(ssn)) {
+      return setErrors({...errors, ssn: 'Not a valid SSN'})
     } else {
       return setErrors({...errors, ssn: ''})
     }
